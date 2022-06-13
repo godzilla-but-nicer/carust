@@ -1,7 +1,0 @@
-# editor stuff
-.vscode/
-
-# rust stuff
-Cargo.lock
-/target
-*.swp
