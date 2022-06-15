@@ -3,6 +3,7 @@ use convolutions_rs::Padding;
 use ndarray::*;
 
 mod utils;
+mod Totalistic2D;
 
 
 fn main() {
