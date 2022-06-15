@@ -118,6 +118,3 @@ mod test_utils {
         assert_eq!(conv_out, neighbors)
     }
 }
-
-//   0 1 2
-// 0 1 2 3 4
