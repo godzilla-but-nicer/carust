@@ -2,6 +2,19 @@ use ndarray::*;
 use convolutions_rs::Padding;
 use convolutions_rs::convolutions::conv2d;
 
+// filter a 2d array such that elements == keep_state are 1. and all else are 0.
+pub fn filter_grid(a: &ndarray::Array2<f32>, keep_state: f32) -> ndarray::Array2<f32> {
+    let mut out_arr = Array2::<f32>::zeros(a.raw_dim());
+    for ri in 0..a.nrows() {
+        for ci in 0..a.ncols() {
+            if a[[ri, ci]] == keep_state {
+                out_arr[[ri, ci]] = 1.;
+            }
+        }
+    }
+    out_arr
+}
+
 // pad a 2d array such that the inner elements appear to have
 // toroidal boundry conditions
 // needs work probably
@@ -63,8 +76,18 @@ pub fn flat_conv2d(a: ndarray::Array2<f32>, kernel: ndarray::Array2<f32>) -> nda
 }
 
 #[cfg(test)]
-mod tests {
+mod test_utils {
     use super::*;
+    #[test]
+    fn test_filter_grid() {
+        let unfiltered_grid =   array![[1., 2., 1., 3.],
+                                       [2., 1., 2., 1.],
+                                       [1., 2., 3., 4.]];
+        let filtered_grid =   array![[0., 1., 0., 0.],
+                                     [1., 0., 1., 0.],
+                                     [0., 1., 0., 0.]];
+        assert_eq!(filtered_grid, filter_grid(&unfiltered_grid, 2.))
+    }
     #[test]
     fn test_wrap_edges() {
         let unwrapped_grid =   array![[1., 0., 1., 0.],
