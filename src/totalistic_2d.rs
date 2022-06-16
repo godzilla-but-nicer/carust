@@ -2,16 +2,16 @@ use ndarray::{Array2, Array3, Axis, arr2, s};
 use crate::utils;
 
 #[derive(Debug)]
-struct Totalistic2D {
+pub struct Totalistic2D {
     // the state that we count for our neighbors
-    on_state: f32,
+    pub on_state: f32,
     // this is a (states x 9) array that relates current state to next
     // state based on the number of neighbors. for example the array
     // [[0, 0, 1, 0, 1, 1, 1, 1, 1],
     //  [0, 0, 0, 0, 0, 0, 1, 1, 1]]
     // would tell you that a cell in state 0 with 4 neighbors, index [[0, 4]],
     // will be in state 0 in the next time step
-    thresholds: Array2<usize>,
+    pub thresholds: Array2<usize>,
 }
 
 // this is what the simulate transient returns so that we can investigate
