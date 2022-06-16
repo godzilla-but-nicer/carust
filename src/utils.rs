@@ -17,7 +17,7 @@ pub fn filter_grid(a: &ndarray::Array2<f32>, keep_state: f32) -> ndarray::Array2
 
 // pad a 2d array such that the inner elements appear to have
 // toroidal boundry conditions
-// needs work probably
+// needs work probably. assign_to() method for slice will make this easy
 pub fn wrap_edges(a: ndarray::Array2<f32>) -> ndarray::Array2<f32> {
     // i need to use the last index a lot
     let arows = a.nrows();

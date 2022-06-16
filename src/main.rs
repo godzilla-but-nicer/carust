@@ -23,7 +23,6 @@ fn main() {
     
     let neighbors = conv2d(&filter, None, &x, Padding::Same, 1);
     let _wrapped = utils::wrap_edges(test_vec);
-    println!("{}", x);
     println!("{}", neighbors);
     println!("{}", -1 % 2);
 }
