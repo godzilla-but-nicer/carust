@@ -1,2 +1,2 @@
 # carust
-A library for simulating 2D cellular automata in Rust
+A command line application for simulating 2D cellular automata in Rust
