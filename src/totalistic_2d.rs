@@ -16,9 +16,9 @@ pub struct Totalistic2D {
 
 // this is what the simulate transient returns so that we can investigate
 // the number ofd steps as well as the actuial states
-struct Transient {
-    length: usize,
-    states: Array3<f32>,
+pub struct Transient {
+    pub length: usize,
+    pub states: Array3<f32>,
 }
 
 
