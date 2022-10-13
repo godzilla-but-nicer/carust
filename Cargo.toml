@@ -9,3 +9,7 @@ edition = "2018"
 [dependencies]
 ndarray = "0.15.4"
 convolutions-rs = "0.3.4"
+clappers = "2.0.2"
+ndarray-rand = "0.14.0"
+ndarray-npy = "0.8.1"
+crossbeam = "0.8.2"

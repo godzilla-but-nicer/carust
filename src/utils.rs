@@ -2,6 +2,17 @@ use ndarray::*;
 use convolutions_rs::Padding;
 use convolutions_rs::convolutions::conv2d;
 
+// convert an array of ints to an array of floats
+pub fn int_to_float(a: ndarray::Array2<usize>) -> ndarray::Array2<f32> {
+    let mut float_array = Array2::zeros(a.dim());
+    for i in 0..a.nrows() {
+        for j in 0..a.ncols() {
+            float_array[[i, j]] = a[[i, j]] as f32;
+        }
+    }
+    float_array
+}
+
 // filter a 2d array such that elements == keep_state are 1. and all else are 0.
 pub fn filter_grid(a: &ndarray::Array2<f32>, keep_state: f32) -> ndarray::Array2<f32> {
     let mut out_arr = Array2::<f32>::zeros(a.raw_dim());
@@ -17,7 +28,7 @@ pub fn filter_grid(a: &ndarray::Array2<f32>, keep_state: f32) -> ndarray::Array2
 
 // pad a 2d array such that the inner elements appear to have
 // toroidal boundry conditions
-// needs work probably
+// needs work probably. assign_to() method for slice will make this easy
 pub fn wrap_edges(a: ndarray::Array2<f32>) -> ndarray::Array2<f32> {
     // i need to use the last index a lot
     let arows = a.nrows();
@@ -79,6 +90,16 @@ pub fn flat_conv2d(a: ndarray::Array2<f32>, kernel: ndarray::Array2<f32>) -> nda
 mod test_utils {
     use super::*;
     #[test]
+    fn test_int_to_float() {
+        let int_grid =   array![[1, 2, 1, 3],
+                                [2, 1, 2, 1],
+                                [1, 2, 3, 4]];
+        let float_grid = array![[1., 2., 1., 3.],
+                                [2., 1., 2., 1.],
+                                [1., 2., 3., 4.]];
+        assert_eq!(float_grid, int_to_float(int_grid))
+    }
+    #[test]
     fn test_filter_grid() {
         let unfiltered_grid =   array![[1., 2., 1., 3.],
                                        [2., 1., 2., 1.],
@@ -118,6 +139,3 @@ mod test_utils {
         assert_eq!(conv_out, neighbors)
     }
 }
-
-//   0 1 2
-// 0 1 2 3 4
