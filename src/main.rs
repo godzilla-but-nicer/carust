@@ -68,16 +68,20 @@ fn main() {
     // handle file rule table. must be in format
     // #,#,#,#,#,#,#,#,#,#
     // #,#,#,#,#,#,#,#,#,#
-    } else if !rule_path.is_empty() {
+    } if !rule_path.is_empty() {
+        
         let f_str = match fs::read_to_string(rule_path.clone()) {
             Ok(text) => text,
             Err(error) => panic!("File not found! Original error: {:?}", error),
         };
+        
         let mut arr_vec: Vec<usize> = Vec::new();
         // probably a better way to do that
         let flines: Vec<&str> = f_str.lines().collect();
         let nlines = flines.len();
+        
         for line in f_str.lines() {
+            
             let sep = line.split(",");
             for char in sep {
                 let ichar = match char.parse::<usize>() {
@@ -106,7 +110,6 @@ fn main() {
     };
 
     // the actual simulations all occur below this line
-
 
     // initialize model and run according to whether or not the transient flag is passed
     let num_states = rule_table.nrows();
@@ -144,7 +147,7 @@ fn main() {
 
                         // this is all in a scoped thread
                         let initial_cond = Array2::<usize>::random((grid, grid), Uniform::from(0..num_states));
-                        let t_out = model.simulate_transient(utils::int_to_float(initial_cond), steps);
+                        let t_out = model.simulate_transient(utils::int_to_float(initial_cond.clone()), steps);
                         t_out.length
                     }));
                 }

@@ -40,7 +40,7 @@ impl Totalistic2D {
                 // all this type casting might be a problem??
                 let int_s = grid[[ri, ci]] as usize;
                 let int_n = neighbors[[ri, ci]] as usize;
-
+                //println!("{:?}", self.thresholds);
                 next_grid[[ri, ci]] = self.thresholds[[int_s, int_n]] as f32;                
             }
         }
