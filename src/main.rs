@@ -127,7 +127,6 @@ fn main() {
     if clappers.get_flag("transient") {
         if clappers.get_flag("save-rules") {
             let save_rule_table = model.thresholds.mapv(|elem| elem as u32);
-            println!("saving rules");
             write_npy("data/rule_table.npy", &save_rule_table).unwrap();
         }
         
@@ -197,7 +196,6 @@ fn main() {
     } else {
         if clappers.get_flag("save-rules") {
             let save_rule_table = model.thresholds.mapv(|elem| elem as u32);
-            println!("saving rules");
             write_npy("data/rule_table.npy", &save_rule_table).unwrap();
         }
         let mut npz = NpzWriter::new(File::create("data/time_series.npz").unwrap());
